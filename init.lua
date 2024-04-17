@@ -472,6 +472,11 @@ require('lazy').setup({
           --  To jump back, press <C-t>.
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
+          -- Jump to definition of the word under your cursor but on a new split pane
+          vim.keymap.set('n', 'gds', function()
+            require('telescope.builtin').lsp_definitions { jump_type = 'vsplit' }
+          end, { buffer = event.buf, desc = 'LSP: [G]oto [D]efinition on [S]plit pane' })
+
           -- Find references for the word under your cursor.
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
