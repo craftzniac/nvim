@@ -424,7 +424,7 @@ require('lazy').setup({
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', opts = {} },
 
-      -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
+      -- `neodev` configures Lu LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
       { 'folke/neodev.nvim', opts = {} },
     },
@@ -475,10 +475,15 @@ require('lazy').setup({
           --  To jump back, press <C-t>.
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
-          -- Jump to definition of the word under your cursor but on a new split pane
-          vim.keymap.set('n', 'gds', function()
+          -- Jump to definition of the word under your cursor but on a new vsplit pane
+          vim.keymap.set('n', 'gdj', function()
             require('telescope.builtin').lsp_definitions { jump_type = 'vsplit' }
-          end, { buffer = event.buf, desc = 'LSP: [G]oto [D]efinition on [S]plit pane' })
+          end, { buffer = event.buf, desc = 'LSP: [G]oto [D]efinition on [J] vertical split pane' })
+
+          -- Jump to definition of the word under your cursor but on a new hsplit pane
+          vim.keymap.set('n', 'gdk', function()
+            require('telescope.builtin').lsp_definitions { jump_type = 'split' }
+          end, { buffer = event.buf, desc = 'LSP: [G]oto [D]efinition on [K] horizontal split pane' })
 
           -- Find references for the word under your cursor.
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -554,7 +559,7 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        -- gopls = {},
+        gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -765,7 +770,7 @@ require('lazy').setup({
     init = function()
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', 'tokyonight-night',  or 'tokyonight-day'.
       vim.cmd.colorscheme 'tokyonight-night'
 
       -- You can configure highlights by doing something like:
@@ -817,7 +822,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'css', 'typescript', 'javascript' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -825,7 +830,7 @@ require('lazy').setup({
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
+        additional_vim_regex_highlighting = { 'ruby', 'svelte' },
       },
       indent = { enable = true, disable = { 'ruby' } },
     },
@@ -863,6 +868,7 @@ require('lazy').setup({
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   { import = 'custom.plugins' },
+  -- delete custom.after directory --- { import = 'custom.after' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
