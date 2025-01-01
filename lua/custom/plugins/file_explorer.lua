@@ -13,6 +13,7 @@ FILE_EXPLORER = {
       view = {
         relativenumber = true,
         number = true,
+        side = 'right',
       },
     }
 
