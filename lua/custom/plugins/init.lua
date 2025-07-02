@@ -14,4 +14,6 @@ au ColorScheme * hi Normal ctermbg=none guibg=none
 au ColorScheme myspecialcolors hi Normal ctermbg=red guibg=red
 ]]
 
+vim.keymap.set('n', '<leader>k', 'i<CR><Esc>', { desc = 'Split the line and auto-indent' })
+
 return {}
