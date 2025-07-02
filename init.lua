@@ -776,14 +776,16 @@ require('lazy').setup({
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
         local disable_filetypes = { c = true, cpp = true }
-        if disable_filetypes[vim.bo[bufnr].filetype] then
-          return nil
-        else
-          return {
-            timeout_ms = 500,
-            lsp_format = 'fallback',
-          }
-        end
+        -- if disable_filetypes[vim.bo[bufnr].filetype] then
+        --   return nil
+        -- else
+        --   return {
+        --     timeout_ms = 500,
+        --     lsp_format = 'fallback',
+        --   }
+        -- end
+
+        return nil -- disable format on save
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
